@@ -1,0 +1,19 @@
+﻿
+@{
+    ViewData["Title"] = "Desktops";
+}
+
+<h1>Desktops</h1>
+
+<h1 class="display-1">@ViewData["CrazyEddie"]</h1>
+
+<p>dkfdska;fsdkfjksasdfjka dskfhasdkfh asdfkjhsaldf  fsdkjhfsdakljfh  fsdljfhasdl h</p>
+<h2>@ViewData["Message"]</h2>
+
+<h2>Products for sale</h2>
+<ul>
+    @foreach(string prod in Model){
+        <li>@prod</li>
+    }
+</ul>
+
