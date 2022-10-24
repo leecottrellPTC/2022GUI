@@ -11,9 +11,20 @@
 <h2>@ViewData["Message"]</h2>
 
 <h2>Products for sale</h2>
-<ul>
-    @foreach(string prod in Model){
-        <li>@prod</li>
-    }
-</ul>
+<table class="table table-striped">
+    <thead>
+        <th>Name</th>
+        <th>Price</th>
+        <th>RAM</th>
+    </thead>
+    <tbody>
+        @foreach(Desktop rig in Model){
+            <tr>
+                <td>@rig.Name</td>
+                <td>@rig.Price</td>
+                <td>@rig.RAM</td>
+            </tr>
+        }
+    </tbody>
+</table>
 

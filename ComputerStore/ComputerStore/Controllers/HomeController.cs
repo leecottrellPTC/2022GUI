@@ -23,12 +23,28 @@ namespace ComputerStore.Controllers
             return View();
         }
 
+        public IActionResult OrderForm()//get - just open the form
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult OrderForm(OrderItem theOrder)
+        {
+            return View("Thanks", theOrder);
+        }
+
         public IActionResult Desktops()
         {
             //enter logic to display seasonal message
             ViewData["Message"] = "Desktop Computers for sale!";
             ViewData["CrazyEddie"] = "15% off gaming rigs";
-            return View(new string[] {"Gaming desktop", "Office desktop", "Take over the world"});
+            //return View(new string[] {"Gaming desktop", "Office desktop", "Take over the world"});
+            Desktop gaming = new("Gaming Rig", 2500, 16);
+            Desktop office = new("Office Computer", 750, 8);
+            Desktop home = new("Home Computer", 900, 16);
+            Desktop[] comps = { gaming, office, home };
+            return View(comps);
         }
 
         public IActionResult Privacy()
