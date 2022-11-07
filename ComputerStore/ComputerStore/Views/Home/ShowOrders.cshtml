@@ -1,0 +1,19 @@
+﻿
+@{
+    ViewData["Title"] = "ShowOrders";
+}
+
+<h1>All Computer Orders</h1>
+<table class="table table-striped">
+    <tr>
+        <th>Customer Email</th>
+        <th>Processor Speed</th>
+    </tr>
+    @foreach(OrderItem order in Model){
+        <tr>
+            <td>@order.Email</td>
+            <td>@order.Speed</td>
+        </tr>
+    }
+</table>
+

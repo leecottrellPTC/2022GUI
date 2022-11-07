@@ -28,10 +28,23 @@ namespace ComputerStore.Controllers
             return View();
         }
 
+        public IActionResult ShowOrders()//get - just open the form
+        {
+            return View(AllOrders.ListOrders);
+        }
+
         [HttpPost]
         public IActionResult OrderForm(OrderItem theOrder)
         {
-            return View("Thanks", theOrder);
+            if (ModelState.IsValid)
+            {
+                AllOrders.AddOrder(theOrder);
+                return View("Thanks", theOrder);
+            }
+            else
+            {
+                return View(theOrder);
+            }
         }
 
         public IActionResult Desktops()

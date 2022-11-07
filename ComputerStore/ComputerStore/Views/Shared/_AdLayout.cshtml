@@ -10,11 +10,30 @@
 </head>
 <body>
     <header>
-        @Html.Partial("_menu")
+       @Html.Partial("_menu")
     </header>
     <div class="container">
         <main role="main" class="pb-3">
-            @RenderBody()
+            <div class="container">
+                <div class="row">
+                    <img src="https://placekitten.com/1600/200" />
+                </div>
+
+                <div class="row">
+                    <div class="col-md-2">
+                        <img src="https://placekitten.com/200/800" />
+                    </div>
+                    <div class="col-md-8">
+                        @RenderBody()
+                    </div>
+                    <div class="col-md-2">
+                        <img src="https://placekitten.com/200/800" />
+                    </div>
+                </div>
+
+            </div>
+            
+            
         </main>
     </div>
 
