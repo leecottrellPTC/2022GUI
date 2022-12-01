@@ -19,9 +19,37 @@ namespace EFDatabaseFirst.Controllers
         }
 
         // GET: Books
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(String sortOrder, string searchString)
         {
-              return View(await _context.Books.ToListAsync());
+            var books = from b in _context.Books
+                        select b;
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                books = books.Where(b => b.Title.Contains(searchString));
+            }
+            ViewData["CurrentFilter"] = searchString;
+
+            ViewData["TitleSortParam"] = String.IsNullOrEmpty(sortOrder) ? "title_sort" : "";
+            ViewData["TypeSortParam"] = sortOrder == "Type" ? "type_sort" : "type_sort";
+
+            switch (sortOrder)
+            {
+                case "title_sort":
+                default:
+                    books = books.OrderBy(b => b.Title);
+                        break;
+                case "type_sort":
+                    books = books.OrderBy(b => b.Type);
+                    break;
+            }//end switch
+
+
+            return View(await books.AsNoTracking().ToListAsync());
+            /*return View(await 
+                _context.Books.Where(b => b.Type.Equals("FIC")).ToListAsync());*/
+            
+
+           // return View(await _context.Books.ToListAsync());
         }
 
         // GET: Books/Details/5

@@ -5,6 +5,14 @@
 }
 
 <h1>Index</h1>
+<form asp-action="Index" method="get">
+    <div class="form-group">
+        Search by keyword:<input type="text" name="searchString"
+            value="@ViewData["CurrentFilter"]" />
+            <input type="submit" value="Search" class="btn btn-primary"/>
+        <a asp-action="Index">Back to full list</a>
+    </div>
+</form>
 
 <p>
     <a asp-action="Create">Create New</a>
@@ -13,13 +21,17 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Title)
+                <a asp-action="Index" 
+                asp-route-sortOrder="@ViewData["TitleSortParam"]"> 
+                    @Html.DisplayNameFor(model => model.Title)</a>
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.PublisherCode)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Type)
+                <a asp-action="Index" 
+                asp-route-sortOrder="@ViewData["TypeSortParam"]">
+                    @Html.DisplayNameFor(model => model.Type)</a>
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Paperback)
