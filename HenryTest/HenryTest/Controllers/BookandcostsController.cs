@@ -5,89 +5,89 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using EFDatabaseFirst.Models;
+using HenryTest.Models;
 
-namespace EFDatabaseFirst.Controllers
+namespace HenryTest.Controllers
 {
-    public class AuthorsController : Controller
+    public class BookandcostsController : Controller
     {
         private readonly cottrelldbContext _context;
 
-        public AuthorsController(cottrelldbContext context)
+        public BookandcostsController(cottrelldbContext context)
         {
             _context = context;
         }
 
-        // GET: Authors
+        // GET: Bookandcosts
         public async Task<IActionResult> Index()
         {
-              return View(await _context.Author.ToListAsync());
+              return View(await _context.Bookandcosts.ToListAsync());
         }
 
-        // GET: Authors/Details/5
-        public async Task<IActionResult> Details(decimal? id)
+        // GET: Bookandcosts/Details/5
+        public async Task<IActionResult> Details(string id)
         {
-            if (id == null || _context.Author == null)
+            if (id == null || _context.Bookandcosts == null)
             {
                 return NotFound();
             }
 
-            var author = await _context.Author
-                .FirstOrDefaultAsync(m => m.AuthorNum == id);
-            if (author == null)
+            var bookandcost = await _context.Bookandcosts
+                .FirstOrDefaultAsync(m => m.Bookcode == id);
+            if (bookandcost == null)
             {
                 return NotFound();
             }
 
-            return View(author);
+            return View(bookandcost);
         }
 
-        // GET: Authors/Create
+        // GET: Bookandcosts/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Authors/Create
+        // POST: Bookandcosts/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("AuthorNum,AuthorLast,AuthorFirst,ImgPath")] Author author)
+        public async Task<IActionResult> Create([Bind("Bookcode,Title,Type,Price")] Bookandcost bookandcost)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(author);
+                _context.Add(bookandcost);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(author);
+            return View(bookandcost);
         }
 
-        // GET: Authors/Edit/5
-        public async Task<IActionResult> Edit(decimal? id)
+        // GET: Bookandcosts/Edit/5
+        public async Task<IActionResult> Edit(string id)
         {
-            if (id == null || _context.Authors == null)
+            if (id == null || _context.Bookandcosts == null)
             {
                 return NotFound();
             }
 
-            var author = await _context.Authors.FindAsync(id);
-            if (author == null)
+            var bookandcost = await _context.Bookandcosts.FindAsync(id);
+            if (bookandcost == null)
             {
                 return NotFound();
             }
-            return View(author);
+            return View(bookandcost);
         }
 
-        // POST: Authors/Edit/5
+        // POST: Bookandcosts/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(decimal id, [Bind("AuthorNum,AuthorLast,AuthorFirst,ImgPath")] Author author)
+        public async Task<IActionResult> Edit(string id, [Bind("Bookcode,Title,Type,Price")] Bookandcost bookandcost)
         {
-            if (id != author.AuthorNum)
+            if (id != bookandcost.Bookcode)
             {
                 return NotFound();
             }
@@ -96,12 +96,12 @@ namespace EFDatabaseFirst.Controllers
             {
                 try
                 {
-                    _context.Update(author);
+                    _context.Update(bookandcost);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!AuthorExists(author.AuthorNum))
+                    if (!BookandcostExists(bookandcost.Bookcode))
                     {
                         return NotFound();
                     }
@@ -112,49 +112,49 @@ namespace EFDatabaseFirst.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(author);
+            return View(bookandcost);
         }
 
-        // GET: Authors/Delete/5
-        public async Task<IActionResult> Delete(decimal? id)
+        // GET: Bookandcosts/Delete/5
+        public async Task<IActionResult> Delete(string id)
         {
-            if (id == null || _context.Authors == null)
+            if (id == null || _context.Bookandcosts == null)
             {
                 return NotFound();
             }
 
-            var author = await _context.Authors
-                .FirstOrDefaultAsync(m => m.AuthorNum == id);
-            if (author == null)
+            var bookandcost = await _context.Bookandcosts
+                .FirstOrDefaultAsync(m => m.Bookcode == id);
+            if (bookandcost == null)
             {
                 return NotFound();
             }
 
-            return View(author);
+            return View(bookandcost);
         }
 
-        // POST: Authors/Delete/5
+        // POST: Bookandcosts/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(decimal id)
+        public async Task<IActionResult> DeleteConfirmed(string id)
         {
-            if (_context.Authors == null)
+            if (_context.Bookandcosts == null)
             {
-                return Problem("Entity set 'cottrelldbContext.Authors'  is null.");
+                return Problem("Entity set 'cottrelldbContext.Bookandcosts'  is null.");
             }
-            var author = await _context.Authors.FindAsync(id);
-            if (author != null)
+            var bookandcost = await _context.Bookandcosts.FindAsync(id);
+            if (bookandcost != null)
             {
-                _context.Authors.Remove(author);
+                _context.Bookandcosts.Remove(bookandcost);
             }
             
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool AuthorExists(decimal id)
+        private bool BookandcostExists(string id)
         {
-          return _context.Authors.Any(e => e.AuthorNum == id);
+          return _context.Bookandcosts.Any(e => e.Bookcode == id);
         }
     }
 }
