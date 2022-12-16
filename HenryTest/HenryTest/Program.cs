@@ -6,7 +6,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
-var conn = @"Server=tcp:cottrellptcsql.database.windows.net,1433;Initial Catalog=cottrelldb;Persist Security Info=False;User ID=ptcstudent;Password=a,plain3;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
+var conn = @"connection string here";
 builder.Services.AddDbContext<cottrelldbContext>(options => options.UseSqlServer(conn));
 
 
